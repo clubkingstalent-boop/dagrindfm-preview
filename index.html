@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<title>DaGrindFM — Miami's Independent Sound</title>
+<meta name="description" content="Listen live to DaGrindFM, watch the studio when the camera is on, and discover the people and partners behind Miami's independent sound.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23050505'/%3E%3Ctext x='32' y='43' font-family='Arial' font-size='25' font-weight='900' fill='%23f5a000' text-anchor='middle'%3EDG%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="site.css?v=live-20261015">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<style>
+/* ===== Da Grind FM v2 — mockup design layer (functionality/scripts unchanged) ===== */
+:root{--vbg:#0a0a0c;--vcard:#141417;--vline:#26262c;--vorg:#ff7a00;--vred:#e8262d;--vmut:#a3a3ab;--vtxt:#f5f5f4}
+html{scroll-behavior:smooth}
+body{display:block;margin:0;background:var(--vbg);color:var(--vtxt);font-family:Arial,Helvetica,sans-serif}
+.v2wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+.v2wrap *, .v2wrap *:before, .v2wrap *:after{box-sizing:border-box}
+.v2wrap img{max-width:100%}
+.v2wrap h1,.v2wrap h2,.v2wrap h3,.v2wrap p{margin:0}
+/* Header */
+.mhead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;padding:18px 4px;border-bottom:1px solid #232329;background:var(--vbg)}
+.mlogo{font-family:'Anton','Arial Narrow',Arial,sans-serif;font-size:32px;letter-spacing:1px;color:#fff;text-decoration:none;line-height:1;display:flex;align-items:center;gap:12px}
+.mlogo span{color:var(--vorg)}
+.mlogo small{display:block;font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:3px;color:var(--vmut);font-weight:700;margin-top:5px}
+.mlogo-img{height:48px;width:48px;object-fit:contain;display:block;flex:0 0 auto}
+.mlogo .mlogo-txt{color:#fff}
+.mtabs{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.mtabs .tab{appearance:none;-webkit-appearance:none;border:0;background:transparent;color:#d7d7db;font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;min-height:44px;padding:10px 12px;border-radius:999px;cursor:pointer}
+.mtabs .tab.active{color:var(--vorg);background:rgba(255,122,0,.12)}
+.livepill{background:var(--vred);color:#fff;padding:0 14px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:1px;display:inline-flex;align-items:center;min-height:44px}
+.listenpill{background:var(--vorg);color:#111;padding:0 20px;border-radius:999px;font-weight:800;font-size:13px;letter-spacing:1px;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+/* Panels (tab system — hooks preserved for the site script) */
+.v2main .panel{display:none}
+.v2main .panel.active{display:block}
+/* Hero */
+.mhero{padding:32px 4px 22px;background:radial-gradient(700px 380px at 82% 18%,rgba(255,122,0,.18),transparent 65%)}
+.mhero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:26px;align-items:center}
+.toplabel2{color:var(--vorg);font-weight:700;letter-spacing:4px;font-size:13px}
+.sub2{margin-top:18px;font-size:18px;color:#c9c9cf;line-height:1.45;max-width:620px}
+.chips2{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.chip2{border:1px solid #33333b;background:#141417;padding:10px 16px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:1px;color:#e8e8ea}
+.chip2 .dot{color:var(--vred)}
+.hero-art img{width:100%;height:auto;display:block;border-radius:18px;border:1px solid var(--vline)}
+/* Player + video cards */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding:12px 4px 4px}
+.vcard{background:var(--vcard);border:1px solid var(--vline);border-radius:20px;overflow:hidden}
+.player2{padding:28px}
+.plabel{color:var(--vred);font-weight:700;letter-spacing:3px;font-size:13px}
+.ptitle{font-family:'Anton','Arial Narrow',Arial,sans-serif;font-size:40px;margin-top:10px;letter-spacing:1px;color:#fff;font-weight:400}
+.pmeta{color:var(--vmut);font-weight:700;letter-spacing:2px;font-size:12px;margin-top:4px}
+.stats2{display:flex;gap:10px;margin-top:22px;border-top:1px solid var(--vline);border-bottom:1px solid var(--vline);padding:14px 0}
+.stat2{flex:1;min-width:0}
+.stat2 b{font-family:'Anton','Arial Narrow',Arial,sans-serif;font-size:29px;color:var(--vorg);display:block;font-weight:400}
+.stat2>span{font-size:10px;letter-spacing:2px;color:var(--vmut);font-weight:700}
+#listenerNote{font-size:11px;color:var(--vmut);letter-spacing:1px;font-weight:700;margin-top:10px}
+#eq{display:flex;align-items:flex-end;gap:4px;height:54px;margin-top:20px}
+#eq span{flex:1;background:linear-gradient(#ffb25e,#ff7a00);border-radius:2px;display:block;min-height:6px}
+.playrow{display:flex;align-items:center;gap:16px;margin-top:22px}
+#radio #radioPlay{width:72px;height:72px;flex:0 0 auto;border-radius:50%;border:0;background:var(--vorg);color:#111;font-size:27px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;line-height:1}
+.playrow p{font-size:16px;font-weight:700;color:#fff}
+.playrow small{color:var(--vmut);font-size:13px;display:block;margin-top:3px}
+#radio #radioStatus{font-size:12px;color:var(--vmut);margin-top:5px}
+#radio #studioListen{margin-top:22px;border:1px solid #2b2b2b;background:#0b0b0d;border-radius:14px;padding:14px 16px;display:grid;gap:4px;text-align:left}
+#radio #studioListen .eyebrow2{font-size:10px;font-weight:900;letter-spacing:.18em;color:var(--vorg)}
+#radio #studioListen strong{font-size:16px;color:#fff;line-height:1.2}
+#radio #studioListen>span:last-child{color:#b7b0a4;font-size:12px;line-height:1.35}
+#radio #studioListen.playing{border-color:#4bbb77}
+/* Live video card (the .station-visual the script drives) */
+.station-visual{position:relative;min-height:392px;background:#000}
+.restlogo2{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;background:radial-gradient(620px 340px at 50% 42%,rgba(255,122,0,.15),transparent 70%)}
+.restlogo2 img{width:min(56%,290px);max-height:74%;height:auto;object-fit:contain;display:block}
+.citycam2{position:absolute;inset:0;z-index:2;pointer-events:none}
+.citycam2[hidden]{display:none}
+.citycam2 iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+#liveCamera{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;background:#000;z-index:3}
+.station-visual.camera-live #liveCamera{display:block}
+#cameraBadge{position:absolute;top:14px;right:14px;z-index:6;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.6);border-radius:999px;padding:7px 11px;font-size:10px;font-weight:900;letter-spacing:.08em;color:#fff}
+.station-visual.camera-live #cameraBadge{background:rgba(176,0,0,.9);border-color:#ff5b5b}
+.wcap2{position:absolute;left:0;right:0;bottom:0;z-index:5;padding:54px 22px 18px;background:linear-gradient(transparent,rgba(0,0,0,.88))}
+.wbadge2{display:inline-block;background:var(--vred);color:#fff;font-weight:700;font-size:11px;letter-spacing:2px;padding:7px 13px;border-radius:999px;margin-bottom:10px}
+.wcap2 h3{font-family:'Anton','Arial Narrow',Arial,sans-serif;font-size:26px;letter-spacing:1px;color:#fff;font-weight:400}
+.wcap2 p{color:#d7d7db;font-size:14px;margin-top:6px;line-height:1.45}
+#visualStatus{margin-top:9px;font-size:10px;font-weight:900;letter-spacing:.06em;color:#ffb25e}
+/* Section heads */
+.sec2{padding:44px 4px 4px}
+.tag2{color:var(--vorg);font-weight:700;letter-spacing:4px;font-size:12px}
+.sec2 h2{font-family:'Anton','Arial Narrow',Arial,sans-serif;font-size:clamp(30px,5vw,38px);letter-spacing:1px;margin-top:7px;color:#fff;font-weight:400}
+.sec2 h2 span{color:var(--vorg)}
+/* Talent */
+.talent2{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:18px 4px 4px}
+.tcard2{background:var(--vcard);border:1px solid var(--vline);border-radius:18px;overflow:hidden}
+.tcard2 img{width:100%;height:230px;object-fit:cover;display:block}
+.tb2{padding:18px 20px 20px}
+.tb2 h3{font-family:'Anton','Arial Narrow',Arial,sans-serif;font-size:22px;letter-spacing:.5px;color:#fff;font-weight:400}
+.show2{color:var(--vorg);font-weight:700;font-size:14px;margin-top:3px}
+.time2{color:var(--vmut);font-size:12px;margin-top:5px;letter-spacing:1px;font-weight:700}
+/* Featured flyer promo */
+.promo2{display:grid;grid-template-columns:330px 1fr;margin:22px 4px 0;background:var(--vcard);border:1px solid var(--vline);border-radius:18px;overflow:hidden}
+.promo2 img{width:100%;height:100%;object-fit:cover;display:block}
+.promo2 .pb{padding:28px}
+.promo2 h3{font-family:'Anton','Arial Narrow',Arial,sans-serif;font-size:clamp(28px,4vw,38px);letter-spacing:.5px;color:#fff;margin-top:10px;font-weight:400}
+.promo2 h3 span{color:var(--vorg)}
+.promo2 .ptime{font-family:'Anton','Arial Narrow',Arial,sans-serif;font-size:clamp(20px,3vw,26px);color:var(--vorg);margin-top:12px;letter-spacing:.5px}
+.promo2 p{color:#c9c9cf;font-size:15px;line-height:1.5;margin-top:10px}
+/* Schedule + signal grid */
+.schedwrap{display:grid;gap:14px;padding:18px 4px 4px}
+.schedf2{background:linear-gradient(120deg,rgba(255,122,0,.18),#141417);border:1px solid #2b2b2b;border-radius:16px;padding:20px 22px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;align-items:center}
+.schedf2 .eyebrow2{font-size:10px;font-weight:900;letter-spacing:.18em;color:var(--vorg)}
+.schedf2 h3{font-family:'Anton','Arial Narrow',Arial,sans-serif;font-size:24px;color:#fff;margin-top:6px;font-weight:400}
+.schedf2 p{color:#c9c9cf;font-size:13px;margin-top:4px}
+.schedf2 .genre2{font-size:12px;font-weight:700;letter-spacing:2px;color:var(--vorg)}
+.schedlist2{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.schedlist2 article{background:var(--vcard);border:1px solid var(--vline);border-radius:14px;padding:16px 18px}
+.schedlist2 article>span{font-size:10px;font-weight:900;letter-spacing:.15em;color:var(--vorg)}
+.schedlist2 article b{display:block;font-family:'Anton','Arial Narrow',Arial,sans-serif;font-size:19px;color:#fff;margin-top:8px;letter-spacing:.5px;font-weight:400}
+.schedlist2 article small{color:var(--vmut);font-size:12px;display:block;margin-top:4px}
+.signal2{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.signal2>div{background:var(--vcard);border:1px solid var(--vline);border-radius:14px;padding:18px}
+.signal2 span{font-size:11px;font-weight:900;letter-spacing:.15em;color:var(--vorg)}
+.signal2 h3{font-family:'Anton','Arial Narrow',Arial,sans-serif;font-size:21px;color:#fff;margin-top:9px;line-height:1.15;font-weight:400}
+.signal2 p{color:var(--vmut);font-size:13px;line-height:1.5;margin-top:8px}
+.signalart{margin:16px auto 0;max-width:600px}
+.signalart img{width:100%;height:auto;display:block;border-radius:18px;border:1px solid var(--vline)}
+/* Watch */
+.watchart{margin-top:18px}
+.watchart img{width:100%;height:auto;display:block;border-radius:18px;border:1px solid var(--vline)}
+.status2b{font-size:12px;color:var(--vmut);margin-top:10px;line-height:1.45}
+/* Podcast */
+.pod2{background:var(--vcard);border:1px solid var(--vline);border-radius:20px;padding:24px;margin-top:16px}
+.podcast-hero{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.podcast-art{width:96px;height:96px;flex:0 0 auto;border-radius:18px;background:#000;border:1px solid #222;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff}
+.podcast-art b{color:var(--vorg);font-size:22px}
+.pod2 h3{color:#fff}
+.episode-list{display:grid;gap:10px;margin-top:18px}
+.episode-card{border:1px solid var(--vline);background:#0b0b0b;border-radius:16px;padding:14px}
+.episode-top{display:flex;gap:11px;align-items:center}
+.ep-thumb{width:48px;height:48px;border-radius:12px;background:#151515;border:1px solid #282828;display:flex;align-items:center;justify-content:center;color:var(--vorg);font-weight:900;flex:0 0 auto}
+.ep-title{font-size:14px;font-weight:900;color:#fff}
+.ep-meta{font-size:10px;color:var(--vmut);margin-top:4px}
+.ep-desc{font-size:12px;color:#aaa;line-height:1.45;margin-top:9px}
+.episode-card audio{width:100%;margin-top:10px}
+.admin-note{margin-top:14px;border:1px dashed rgba(255,122,0,.35);border-radius:14px;padding:12px;font-size:11px;color:#999;line-height:1.5}
+/* Sponsors */
+.spons2{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:18px 4px 4px}
+.spon2{background:var(--vcard);border:1px solid var(--vline);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.spon2 .frame{height:172px;background:#fff;display:flex;align-items:center;justify-content:center;padding:8px}
+.spon2 .frame img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.spon2 .sb{padding:12px 14px 14px}
+.spon2 .sb b{font-family:'Anton','Arial Narrow',Arial,sans-serif;font-size:16px;letter-spacing:.5px;color:#fff;display:block;line-height:1.2;font-weight:400}
+.spon2 .cat{color:var(--vorg);font-size:10px;letter-spacing:2px;font-weight:700;margin-top:5px}
+.spon2 .txt{color:var(--vmut);font-size:11px;line-height:1.45;margin-top:7px}
+.sponnote2{margin:18px 4px 0;border:1px solid rgba(255,122,0,.3);background:rgba(255,122,0,.07);border-radius:14px;padding:14px 16px;font-size:13px;line-height:1.5;color:#e8e8ea}
+.sponnote2 strong{color:var(--vorg)}
+/* CTA band */
+.cta2{margin:22px 4px 0;background:linear-gradient(90deg,#ff7a00,#ff9a2e);border-radius:18px;padding:26px 28px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;color:#141414}
+.cta2 h3{font-family:'Anton','Arial Narrow',Arial,sans-serif;font-size:26px;letter-spacing:.5px;font-weight:400}
+.cta2 p{font-size:14px;font-weight:700;margin-top:4px}
+.cbtn2{background:#111;color:#fff;padding:14px 24px;border-radius:999px;font-weight:700;font-size:14px;letter-spacing:1px;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;min-height:48px}
+/* Footer */
+.mfoot{margin-top:48px;border-top:1px solid #232329;padding:30px 4px 42px;display:grid;grid-template-columns:1.25fr .65fr 1fr;gap:30px}
+.flogo2{font-family:'Anton','Arial Narrow',Arial,sans-serif;font-size:24px;color:#fff;display:flex;align-items:center;gap:10px}
+.flogo-img{height:40px;width:40px;object-fit:contain;display:block}
+.flogo2 span{color:var(--vorg)}
+.mfoot small{color:var(--vmut);display:block;margin-top:8px;font-size:12px;line-height:1.6}
+.mfoot small a{color:#d7d7db}
+.partner2{margin-top:16px;border:1px solid var(--vline);border-radius:10px;padding:10px 14px;color:var(--vmut);font-size:12px;font-weight:700;letter-spacing:1px;display:inline-block;line-height:1.7}
+.partner2 b{color:var(--vtxt)}
+.fcol-h{color:#d7d7db;font-size:13px;font-weight:700;letter-spacing:1px;margin-bottom:8px}
+.flinks2{display:flex;flex-direction:column;align-items:flex-start}
+.flinks2 .tab{appearance:none;-webkit-appearance:none;background:none;border:0;color:#d7d7db;font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;min-height:44px;padding:8px 0;cursor:pointer;text-align:left}
+.flinks2 .tab:before,.flinks2 a.flink:before{content:'› ';color:var(--vorg)}
+.flinks2 a.flink{color:#d7d7db;font-size:13px;font-weight:700;letter-spacing:1px;min-height:44px;display:inline-flex;align-items:center;text-decoration:none}
+.appitem2{margin-top:14px;color:var(--vmut);font-size:12px;font-weight:700;letter-spacing:1px}
+.appitem2 a{color:#d7d7db}
+.socials2{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.socials2 a{border:1px solid #33333b;border-radius:999px;padding:9px 14px;font-size:12px;font-weight:700;color:#e8e8ea;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+/* Responsive */
+@media (max-width:1023px){
+  .spons2{grid-template-columns:repeat(2,1fr)}
+  .mfoot{grid-template-columns:1fr 1fr}
+}
+@media (max-width:860px){
+  .grid2{grid-template-columns:1fr}
+  .mhero-grid{grid-template-columns:1fr}
+  .promo2{grid-template-columns:1fr}
+  .promo2 img{max-height:560px}
+  .station-visual{min-height:340px}
+}
+@media (max-width:720px){
+  .v2wrap{padding:0 14px}
+  .mhead{padding:14px 2px}
+  .mtabs{width:100%}
+  .talent2,.schedlist2,.signal2,.spons2{grid-template-columns:1fr}
+  .mfoot{grid-template-columns:1fr}
+  .mhero{padding:26px 2px 18px}
+  .sub2{font-size:16px}
+  .player2{padding:20px}
+  .station-visual{min-height:300px}
+  .playrow{flex-wrap:wrap}
+  .cta2{flex-direction:column;align-items:flex-start}
+  .tcard2 img{height:215px}
+  .stats2{flex-wrap:wrap}
+  .stat2{flex:1 1 28%}
+  .sec2{padding-top:34px}
+}
+</style>
+</head>
+<body>
+<div class="v2wrap" id="top">
+<style>
+/* Shop sections (Songs for Sale / Merch) */
+.shop2{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:18px 4px 4px}
+.prod2{background:var(--vcard);border:1px solid var(--vline);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.cover2{height:172px;background:radial-gradient(120% 120% at 20% 0%,#2a1503,#101013 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border-bottom:1px solid var(--vline)}
+.cover2 .dgmark{font-family:'Anton','Arial Narrow',Arial,sans-serif;font-size:44px;color:var(--vorg);letter-spacing:1px;line-height:1}
+.cover2 .ctag{font-size:10px;font-weight:900;letter-spacing:.22em;color:var(--vmut)}
+.prod2 .pb2{padding:14px 16px 16px;display:flex;flex-direction:column;gap:4px;flex:1}
+.prod2 .pb2 b{font-family:'Anton','Arial Narrow',Arial,sans-serif;font-size:17px;color:#fff;letter-spacing:.5px;font-weight:400}
+.prod2 .partist{color:var(--vmut);font-size:12px;font-weight:700;letter-spacing:1px}
+.prod2 .prow{margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.prod2 .price{font-family:'Anton','Arial Narrow',Arial,sans-serif;font-size:19px;color:var(--vorg)}
+.buy2{background:var(--vorg);color:#111;font-size:12px;font-weight:800;letter-spacing:1px;padding:0 18px;border-radius:999px;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+.soonpill{border:1px solid rgba(255,122,0,.45);color:var(--vorg);font-size:11px;font-weight:800;letter-spacing:2px;padding:9px 14px;border-radius:999px}
+.prod2.soon2 .cover2{background:radial-gradient(120% 120% at 20% 0%,#1d1104,#101013 70%)}
+.shopnote2{margin:16px 4px 0;color:var(--vmut);font-size:12px;line-height:1.5}
+@media (max-width:1023px){.shop2{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:720px){.shop2{grid-template-columns:1fr}}
+</style>
+<header class="mhead">
+  <a class="mlogo" href="#top"><img class="mlogo-img" src="dagrindfm-logo.jpg" alt="Da Grind FM logo"><span class="mlogo-txt">DA GRIND <span>FM</span><small>100.3 WQNB • MIAMI GARDENS</small></span></a>
+  <nav class="mtabs" aria-label="Station sections">
+    <button class="tab active" data-panel="radio">RADIO</button>
+    <button class="tab" data-panel="watch">WATCH</button>
+    <button class="tab" data-panel="shows">SHOWS</button>
+    <button class="tab" data-panel="music">MUSIC</button>
+    <button class="tab" data-panel="merch">MERCH</button>
+    <button class="tab" data-panel="sponsors">SPONSORS</button>
+    <span class="livepill">● LIVE 24/7</span>
+    <a class="listenpill" href="#radio">LISTEN LIVE</a>
+  </nav>
+</header>
+
+<main class="v2main">
+<section id="radio" class="panel active">
+  <div class="mhero">
+    <div class="mhero-grid">
+      <div>
+        <div class="toplabel2">MIAMI GARDENS • 100.3 FM • WQNB</div>
+        <p class="sub2">Independent hip-hop, R&amp;B, throwbacks, community voices, and the shows that keep South Florida connected — on air and on screen.</p>
+        <div class="chips2"><span class="chip2"><span class="dot">●</span> LIVE 24/7</span><span class="chip2">HIP-HOP • R&amp;B • THROWBACKS</span><span class="chip2">WATCH THE STUDIO LIVE</span></div>
+      </div>
+      <div class="hero-art"><img src="hero-orange.jpg" alt="Da Grind FM — Listen Live at dagrindfm.com"></div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="vcard player2">
+      <div class="plabel">● LIVE RADIO</div>
+      <h2 class="ptitle">DA GRIND FM</h2>
+      <div class="pmeta">100.3 FM • WQNB • MIAMI GARDENS</div>
+      <div class="stats2">
+        <div class="stat2"><b><span id="listenerCount">75</span></b><span>LISTENING NOW</span></div>
+        <div class="stat2"><b><span id="listenerPeak">182</span></b><span>PEAK TODAY</span></div>
+        <div class="stat2"><b>24/7</b><span>ON AIR</span></div>
+      </div>
+      <div id="listenerNote" aria-live="polite">TUNED IN TO DA GRIND FM</div>
+      <div class="eq" id="eq" aria-hidden="true">
+        <span style="height:22%"></span><span style="height:58%"></span><span style="height:35%"></span>
+        <span style="height:82%"></span><span style="height:42%"></span><span style="height:70%"></span>
+        <span style="height:28%"></span><span style="height:90%"></span><span style="height:54%"></span>
+        <span style="height:38%"></span><span style="height:68%"></span><span style="height:31%"></span>
+      </div>
+      <div class="playrow">
+        <button id="radioPlay" class="play" aria-label="Play live radio">▶</button>
+        <div>
+          <p>Tap play to listen live.</p>
+          <small>One button. No app, no signup.</small>
+          <div id="radioStatus" class="status">Tap play to listen live.</div>
+        </div>
+      </div>
+      <div id="studioListen" class="now studio-listen" aria-live="polite">
+        <span class="eyebrow2">LIVE FROM THE STUDIO</span>
+        <strong id="studioListenTitle">TAP TO HEAR DAGRINDFM LIVE</strong>
+        <span id="studioListenCopy">Hear the music playing on air right now.</span>
+      </div>
+      <audio id="liveAudio" preload="none"></audio>
+    </div>
+
+    <div class="vcard station-visual" aria-label="DaGrindFM live station visual">
+      <div class="restlogo2" aria-hidden="true"><img src="dagrindfm-logo.jpg" alt=""></div>
+      <div class="citycam2" id="cityCamLayer" hidden><iframe id="cityCamFrame" title="Live Miami city camera — MacArthur Causeway" allow="autoplay; encrypted-media; picture-in-picture"></iframe></div>
+      <div id="cameraBadge" class="visual-cam-note">CAMERA READY</div>
+      <video id="liveCamera" class="live-camera" playsinline muted autoplay aria-label="DaGrindFM live camera"></video>
+      <div class="wcap2">
+        <span class="wbadge2">● LIVE VIDEO</span>
+        <h3>LIVE FROM THE STUDIO</h3>
+        <p>Music videos, studio cams &amp; live sets when talent is on. Studio dark? The latest video replay runs here — this screen never sits empty.</p>
+        <div id="visualStatus" class="visual-status" aria-live="polite">STUDIO CAMERA • LIVE WHEN ON AIR</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="shows" class="panel">
+  <div class="sec2"><div class="tag2">ON AIR</div><h2>SHOWS &amp; <span>TALENT</span></h2></div>
+  <div class="talent2">
+    <div class="tcard2"><img src="talent-tony-real-c.jpg" alt="DJ Tony Tone"><div class="tb2"><h3>DJ TONY TONE</h3><div class="show2">Friday Night Mixshow</div><div class="time2">FRIDAYS • 9 PM • LIVE + VIDEO</div></div></div>
+    <div class="tcard2"><img src="talent-morning-c.jpg" alt="The Morning Show"><div class="tb2"><h3>THE MORNING SHOW</h3><div class="show2">Wake Up Miami Gardens</div><div class="time2">WEEKDAYS • 7 AM</div></div></div>
+    <div class="tcard2"><img src="talent-nico-c.jpg" alt="Nico Bang Em"><div class="tb2"><h3>NICO BANG EM</h3><div class="show2">Sunday Set</div><div class="time2">SUNDAYS • LIVE ON DA GRIND</div></div></div>
+    <div class="tcard2"><img src="talent-lasmooth.jpg" alt="L.A. Smooth"><div class="tb2"><h3>L.A. SMOOTH</h3><div class="show2">The L.A. Smooth Show — 2 Hour Love Hour</div><div class="time2">SUNDAYS • 6–8 PM</div></div></div>
+  </div>
+
+  <div class="promo2">
+    <img src="tony-tone-flyer.jpg" alt="DJ Tony Tone — Daytime Miami, coming in November">
+    <div class="pb">
+      <div class="tag2">COMING IN NOVEMBER</div>
+      <h3>DAYTIME <span>MIAMI</span></h3>
+      <div class="ptime">2 PM – 4 PM • MONDAY – FRIDAY</div>
+      <p>DJ Tony Tone takes over your afternoons — hip-hop, R&amp;B, throwbacks, classics &amp; more, broadcasting across Miami Gardens, North Miami Beach, Aventura, Hollywood &amp; surrounding areas on 100.3 FM WQNB.</p>
+    </div>
+  </div>
+
+  <div class="promo2">
+    <img src="la-smooth-flyer.jpg" alt="The L.A. Smooth Show — Sundays 6 to 8 PM, coming in November">
+    <div class="pb">
+      <div class="tag2">COMING IN NOVEMBER</div>
+      <h3>THE L.A. SMOOTH <span>SHOW</span></h3>
+      <div class="ptime">6 PM – 8 PM • SUNDAYS</div>
+      <p>The 2 Hour Love Hour — R&amp;B classics, slow jams, old school &amp; smooth vibes to close out your weekend, every Sunday night on 100.3 FM WQNB.</p>
+    </div>
+  </div>
+
+  <div class="sec2"><div class="tag2">THE LINEUP</div><h2>WEEKLY <span>SCHEDULE</span></h2></div>
+  <div class="schedwrap">
+    <section class="schedf2">
+      <div><span class="eyebrow2">ON THE SCHEDULE</span><h3>FRIDAY NIGHT MIXSHOW</h3><p>DJ Tony Tone • Friday at 9 PM</p></div>
+      <div class="genre2">HIP-HOP • R&amp;B • THROWBACKS</div>
+    </section>
+    <section class="schedlist2" aria-label="Weekly station schedule"><article><span>MORNINGS</span><b>MORNING SHOW</b><small>Weekdays • 7 AM</small></article><article><span>NIGHTS</span><b>NIGHT SHOW</b><small>Weeknights • 8 PM</small></article><article><span>SUNDAYS</span><b>NICO BANG EM</b><small>Sunday • Live on Da Grind FM</small></article><article><span>SUNDAYS</span><b>THE L.A. SMOOTH SHOW</b><small>Sundays • 6–8 PM • R&amp;B Classics / Slow Jams</small></article></section>
+    <section class="signal2" aria-label="DaGrindFM station guide">
+      <div><span>01 / LISTEN</span><h3>ONE CLEAR<br>PLAY BUTTON.</h3><p>Tap once for the live DaGrindFM station stream on any device.</p></div>
+      <div><span>02 / WATCH</span><h3>THE STUDIO<br>WHEN LIVE.</h3><p>When the studio is live, picture and sound come from one synced stream. AzuraCast plays when the camera is offline.</p></div>
+      <div><span>03 / CONNECT</span><h3>MIAMI'S<br>INDEPENDENT SOUND.</h3><p>Built around music, culture, community and the people moving the city forward.</p></div>
+      <div class="signalart"><img src="signal-reach.jpg" alt="Da Grind FM — Our Signal Reach: Miami Gardens, Carol City, Opa-locka, Miramar, North Miami Beach, West Park, Hallandale Beach, Hollywood, Aventura, North Miami, Hialeah, Pembroke Pines, Sunny Isles Beach, Miami Shores, Fort Lauderdale and Downtown Miami"></div>
+    </section>
+  </div>
+</section>
+
+<section id="watch" class="panel">
+  <div class="sec2"><div class="tag2">WATCH LIVE</div><h2>LIVE STUDIO CAMERA</h2></div>
+  <div class="watchart"><img src="studio-banner.jpg" alt="Da Grind FM studio — Miami's home for independent artists"></div>
+  <div class="status2b">When the studio is live, picture and sound come from one synced stream. AzuraCast plays when the camera is offline.</div>
+</section>
+
+<section id="podcast" class="panel">
+  <div class="sec2"><div class="tag2">AUDIO ONLY</div><h2>THE GRIND <span>PODCAST</span></h2></div>
+  <div class="pod2">
+    <div class="podcast-hero">
+      <div class="podcast-art"><div><small>THE</small><br><b>GRIND</b><br><small>PODCAST</small></div></div>
+      <div>
+        <h3 style="font-size:20px">Music. Culture. Real Talk.</h3>
+        <p class="status2b" style="margin-top:6px">Listeners only see published episodes here.</p>
+      </div>
+    </div>
+    <div class="episode-list">
+      <div class="episode-card">
+        <div class="episode-top">
+          <div class="ep-thumb">01</div>
+          <div>
+            <div class="ep-title">The Independent Grind</div>
+            <div class="ep-meta">THE GRIND PODCAST • AUDIO</div>
+          </div>
+        </div>
+        <div class="ep-desc">Independent artists, music, culture and the grind behind the movement.</div>
+        <audio controls preload="none"></audio>
+      </div>
+      <div class="episode-card">
+        <div class="episode-top">
+          <div class="ep-thumb">02</div>
+          <div>
+            <div class="ep-title">Miami Culture</div>
+            <div class="ep-meta">THE GRIND PODCAST • AUDIO</div>
+          </div>
+        </div>
+        <div class="ep-desc">Conversations around Miami music, nightlife and culture.</div>
+        <audio controls preload="none"></audio>
+      </div>
+      <div class="episode-card">
+        <div class="episode-top">
+          <div class="ep-thumb">03</div>
+          <div>
+            <div class="ep-title">Behind The Artist</div>
+            <div class="ep-meta">THE GRIND PODCAST • AUDIO</div>
+          </div>
+        </div>
+        <div class="ep-desc">Artist stories, interviews and new independent music.</div>
+        <audio controls preload="none"></audio>
+      </div>
+    </div>
+    <div class="admin-note"><strong style="color:#ff7a00">Admin-only publishing:</strong> the upload control is removed from the listener app. You would upload episodes from a separate private admin dashboard, then they automatically appear here.</div>
+  </div>
+</section>
+
+<section id="music" class="panel">
+  <div class="sec2"><div class="tag2">THE CATALOG</div><h2>SONGS FOR <span>SALE</span></h2></div>
+  <p class="shopnote2" style="margin-top:12px">The store is coming soon — buy direct from Da Grind FM's own artists, right here. Every purchase supports the artists and the station. No middleman.</p>
+  <div class="shop2">
+    <div class="prod2 soon2"><div class="cover2"><div class="dgmark">DG</div><div class="ctag">COMING SOON</div></div><div class="pb2"><b>New Music Coming Soon</b><div class="partist">FROM THE DA GRIND FM ROSTER</div><div class="prow"><span class="soonpill">COMING SOON</span></div></div></div>
+    <div class="prod2 soon2"><div class="cover2"><div class="dgmark">DG</div><div class="ctag">COMING SOON</div></div><div class="pb2"><b>New Music Coming Soon</b><div class="partist">FROM THE DA GRIND FM ROSTER</div><div class="prow"><span class="soonpill">COMING SOON</span></div></div></div>
+    <div class="prod2 soon2"><div class="cover2"><div class="dgmark">DG</div><div class="ctag">COMING SOON</div></div><div class="pb2"><b>New Music Coming Soon</b><div class="partist">FROM THE DA GRIND FM ROSTER</div><div class="prow"><span class="soonpill">COMING SOON</span></div></div></div>
+    <div class="prod2 soon2"><div class="cover2"><div class="dgmark">DG</div><div class="ctag">COMING SOON</div></div><div class="pb2"><b>New Music Coming Soon</b><div class="partist">FROM THE DA GRIND FM ROSTER</div><div class="prow"><span class="soonpill">COMING SOON</span></div></div></div>
+  </div>
+  <p class="shopnote2">When the store opens, new music drops here first — fresh tracks from the Da Grind FM roster.</p>
+</section>
+
+<section id="merch" class="panel">
+  <div class="sec2"><div class="tag2">THE STORE</div><h2>MERCH</h2></div>
+  <p class="shopnote2" style="margin-top:12px">Official Da Grind FM merch is coming soon — gear drops here first when the store opens.</p>
+  <div class="shop2">
+    <div class="prod2 soon2"><div class="cover2"><div class="dgmark">DG</div><div class="ctag">COMING SOON</div></div><div class="pb2"><b>Merch Coming Soon</b><div class="partist">OFFICIAL DA GRIND FM GEAR</div><div class="prow"><span class="soonpill">COMING SOON</span></div></div></div>
+    <div class="prod2 soon2"><div class="cover2"><div class="dgmark">DG</div><div class="ctag">COMING SOON</div></div><div class="pb2"><b>Merch Coming Soon</b><div class="partist">OFFICIAL DA GRIND FM GEAR</div><div class="prow"><span class="soonpill">COMING SOON</span></div></div></div>
+    <div class="prod2 soon2"><div class="cover2"><div class="dgmark">DG</div><div class="ctag">COMING SOON</div></div><div class="pb2"><b>Merch Coming Soon</b><div class="partist">OFFICIAL DA GRIND FM GEAR</div><div class="prow"><span class="soonpill">COMING SOON</span></div></div></div>
+    <div class="prod2 soon2"><div class="cover2"><div class="dgmark">DG</div><div class="ctag">COMING SOON</div></div><div class="pb2"><b>Merch Coming Soon</b><div class="partist">OFFICIAL DA GRIND FM GEAR</div><div class="prow"><span class="soonpill">COMING SOON</span></div></div></div>
+  </div>
+  <div class="cta2"><div><h3>PUT YOUR BUSINESS ON DA GRIND FM</h3><p>Sponsorships, underwriting &amp; community promotion — radio, live video &amp; social.</p></div><a class="cbtn2" href="mailto:clubkingsradio@gmail.com">BECOME A SPONSOR</a></div>
+</section>
+
+<section id="sponsors" class="panel">
+  <div class="sec2"><div class="tag2">PARTNERS</div><h2>SPONSORS &amp; <span>COMMUNITY</span></h2></div>
+  <div class="spons2">
+    <article class="spon2"><div class="frame"><img class="sponsor-flyer" src="sponsor-calle8.jpg" alt="Calle 8 Sports Bar sponsor"></div><div class="sb"><b>CALLE 8 SPORTS BAR</b><div class="cat">Sports Bar • Little Havana</div></div></article>
+    <article class="spon2"><div class="frame"><img class="sponsor-flyer" src="sponsor-physical-therapy-now.jpg" alt="Physical Therapy Now Car Accident Clinics sponsor"></div><div class="sb"><b>PHYSICAL THERAPY NOW</b><div class="cat">Car Accident Clinics</div></div></article>
+    <article class="spon2"><div class="frame"><img src="sponsor-sunday-service.jpg" alt="All Nations Sunday Service flyer"></div><div class="sb"><b>ALL NATIONS SUNDAY SERVICE</b><div class="cat">Community Spotlight</div><p class="txt">Every Sunday at All Nations New Testament Church of God, 4351 W Oakland Park Blvd., Fort Lauderdale.</p></div></article>
+    <article class="spon2"><div class="frame"><img src="sponsor-all-nations.jpg" alt="All Nations New Testament Church of God Fellowship flyer"></div><div class="sb"><b>ALL NATIONS CHURCH</b><div class="cat">Community Partner</div><p class="txt">All Nations New Testament Church of God — serving Broward, Palm Beach, and Miami-Dade Counties. Connect at allnationsntcog.org.</p></div></article>
+    <article class="spon2"><div class="frame"><img class="portrait" src="sponsor-faith-fellowship.jpg" alt="Faith Fellowship Training Institute flyer"></div><div class="sb"><b>FAITH FELLOWSHIP</b><div class="cat">Training Institute</div><p class="txt">Faith Fellowship Training Institute — affordable faith-based healthcare and workforce training programs, enrolling now.</p></div></article>
+    <article class="spon2"><div class="frame"><img class="sponsor-flyer" src="sponsor-my-coverage.jpg" alt="My Coverage Insurance flyer"></div><div class="sb"><b>MY COVERAGE INSURANCE</b><div class="cat">Insurance</div></div></article>
+    <article class="spon2"><div class="frame"><img class="sponsor-flyer" src="sponsor-lifestyle-realty.jpg" alt="Lifestyle International Realty flyer"></div><div class="sb"><b>LIFESTYLE INTERNATIONAL</b><div class="cat">Realty</div></div></article>
+    <article class="spon2"><div class="frame"><img class="sponsor-flyer" src="sponsor-lets-karate.jpg" alt="LETS Karate and Self Defense flyer"></div><div class="sb"><b>LETS KARATE</b><div class="cat">Self Defense</div></div></article>
+    <article class="spon2"><div class="frame"><img class="sponsor-flyer" src="sponsor-new-generation.jpg" alt="New Generation Preparatory School flyer"></div><div class="sb"><b>NEW GENERATION PREP</b><div class="cat">School</div></div></article>
+  </div>
+  <div class="sponnote2"><strong>Put your business, event, or organization on DaGrindFM.</strong><br>Contact us for sponsorship, underwriting, and community-promotion opportunities.</div>
+</section>
+</main>
+
+<footer class="mfoot">
+  <div>
+    <div class="flogo2"><img class="flogo-img" src="dagrindfm-logo.jpg" alt="Da Grind FM logo">DA GRIND <span>FM</span></div>
+    <small>© 2026 Da Grind FM • 100.3 WQNB<br>Miami Gardens &amp; surrounding areas<br>Studio: <a href="mailto:clubkingsradio@gmail.com">contact@dagrindfm.com</a></small>
+    <div class="partner2">SISTER STATIONS — <b>SONIKA RADIO 101.1 FM (WDVS)</b> • <b>RADIO MUNDO 1210 AM (WNMA)</b></div>
+    <div class="appitem2">ANDROID APP: <a href="#">DagrindFM</a></div>
+  </div>
+  <div>
+    <div class="fcol-h">ON DA GRIND</div>
+    <div class="flinks2">
+      <button class="tab" data-panel="radio">Listen Live</button>
+      <button class="tab" data-panel="watch">Watch Live</button>
+      <button class="tab" data-panel="shows">Shows &amp; Talent</button>
+      <button class="tab" data-panel="music">Songs for Sale</button>
+      <button class="tab" data-panel="merch">Merch</button>
+      <button class="tab" data-panel="sponsors">Sponsors</button>
+      <a class="flink" href="mailto:clubkingsradio@gmail.com">Contact</a>
+    </div>
+  </div>
+  <div>
+    <div class="fcol-h">FOLLOW THE GRIND</div>
+    <div class="socials2">
+      <a href="#" rel="noopener">TikTok</a>
+      <a href="https://instagram.com/dagrindfm" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="#" rel="noopener">Facebook</a>
+      <a href="#" rel="noopener">X</a>
+    </div>
+  </div>
+</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js"></script>
+<script>
+const CONFIG = {
+  radioStreamUrl: "https://custom-azura1.asurahosting.com/listen/dagrindfm_/radio.mp3",
+  liveVideoUrl: "https://desktop-pi4ia6h.tail680f8c.ts.net/dagrindfm/index.m3u8",
+  liveCheckMs: 2500
+};
+
+const tabs = document.querySelectorAll(".tab");
+const panels = document.querySelectorAll(".panel");
+tabs.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    tabs.forEach(b=>b.classList.remove("active"));
+    panels.forEach(p=>p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById(btn.dataset.panel).classList.add("active");
+    window.scrollTo({top:0,behavior:"smooth"});
+  });
+});
+
+let playing=false;
+const radioBtn=document.getElementById("radioPlay");
+const studioListen=document.getElementById("studioListen");
+const studioListenTitle=document.getElementById("studioListenTitle");
+const studioListenCopy=document.getElementById("studioListenCopy");
+const liveAudio=document.getElementById("liveAudio");
+const radioStatus=document.getElementById("radioStatus");
+const visualStatus=document.getElementById("visualStatus");
+const bars=[...document.querySelectorAll("#eq span")];
+const stationVisual=document.querySelector(".station-visual");
+const liveCamera=document.getElementById("liveCamera");
+const cameraBadge=document.getElementById("cameraBadge");
+let cameraHls=null;
+let cameraLive=false;
+
+liveAudio.src=CONFIG.radioStreamUrl;
+let listenWanted=false, showReady=false;
+liveCamera.defaultMuted=true;
+liveCamera.muted=true;
+liveCamera.volume=0;
+function updateStudioListen(isPlaying){
+  studioListen.classList.toggle("playing",isPlaying);
+  radioBtn.textContent=isPlaying?"Ⅱ":"▶";
+  radioBtn.setAttribute("aria-label",isPlaying?"Pause live audio":"Play live audio");
+  studioListenTitle.textContent=isPlaying?"YOU'RE HEARING DAGRINDFM LIVE":"TAP TO HEAR DAGRINDFM LIVE";
+  studioListenCopy.textContent=isPlaying?"Live music and shows.":"Tap to listen.";
+  radioStatus.textContent=isPlaying?"DaGrindFM is playing live.":"Tap play to listen live.";
+}
+async function routeAudio(){
+  if(cameraLive){
+    liveCamera.muted=true;
+    liveCamera.volume=0;
+    if(listenWanted){
+      try{await liveAudio.play();liveCamera.play().catch(()=>{});updateStudioListen(true);}catch(_){updateStudioListen(false);}
+    }else{
+      liveAudio.pause();
+      updateStudioListen(false);
+    }
+    return;
+  }
+  liveCamera.muted=true;
+  liveCamera.volume=0;
+  if(listenWanted){try{await liveAudio.play();updateStudioListen(true);}catch(_){updateStudioListen(false);}}
+  else{liveAudio.pause();updateStudioListen(false);}
+}
+liveAudio.addEventListener("playing",()=>{
+  updateStudioListen(listenWanted);
+});
+liveAudio.addEventListener("error",()=>updateStudioListen(false));
+radioBtn.addEventListener("click",()=>{listenWanted=!listenWanted;void routeAudio();});
+liveCamera.addEventListener("playing",()=>{
+  if(!cameraLive)return;
+  if(!showReady){showReady=true;void routeAudio();}
+});
+function setCameraMode(active){
+  cameraLive=active;
+  stationVisual.classList.toggle("camera-live",active);
+  cameraBadge.textContent=active?"LIVE SHOW":"CAMERA READY";
+  visualStatus.textContent=active?"LIVE SHOW • TAP PLAY TO WATCH + LISTEN":"STUDIO CAMERA • LIVE WHEN ON AIR";
+}
+function stopCamera(){
+  showReady=false;
+  setCameraMode(false);
+  liveCamera.muted=true;
+  liveCamera.volume=0;
+  if(cameraHls){cameraHls.destroy();cameraHls=null;}
+  liveCamera.pause();liveCamera.removeAttribute("src");liveCamera.load();
+  void routeAudio();
+}
+function startCamera(){
+  if(cameraLive)return;
+  showReady=false;setCameraMode(true);liveCamera.muted=true;liveCamera.volume=0;
+  if(window.Hls&&Hls.isSupported()){
+    cameraHls=new Hls({enableWorker:true,lowLatencyMode:true,
+      liveSyncDurationCount:3,liveMaxLatencyDurationCount:7,
+      maxLiveSyncPlaybackRate:1,maxBufferLength:10,backBufferLength:0});
+    const sessionJoiner=CONFIG.liveVideoUrl.includes("?")?"&":"?";
+    cameraHls.loadSource(CONFIG.liveVideoUrl+sessionJoiner+"play="+Date.now());cameraHls.attachMedia(liveCamera);
+    cameraHls.on(Hls.Events.MANIFEST_PARSED,()=>{liveCamera.play().catch(()=>{});});
+    cameraHls.on(Hls.Events.ERROR,(_,data)=>{if(data.fatal)stopCamera();});
+  }else if(liveCamera.canPlayType("application/vnd.apple.mpegurl")){
+    const sessionJoiner=CONFIG.liveVideoUrl.includes("?")?"&":"?";
+    liveCamera.src=CONFIG.liveVideoUrl+sessionJoiner+"play="+Date.now();liveCamera.play().catch(()=>{});
+  }else stopCamera();
+}
+
+async function checkCamera(){
+  try{
+    const joiner=CONFIG.liveVideoUrl.includes("?")?"&":"?";
+    const response=await fetch(CONFIG.liveVideoUrl+joiner+"status="+Date.now(),{cache:"no-store"});
+    const manifest=response.ok?await response.text():"";
+    const available=response.ok&&manifest.includes("#EXTM3U");
+    if(available&&!cameraLive)startCamera();
+    if(!available&&cameraLive)stopCamera();
+  }catch(_){
+    if(cameraLive)stopCamera();
+  }
+}
+
+checkCamera();
+setInterval(checkCamera,CONFIG.liveCheckMs);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)checkCamera();});
+
+// Day-part listener movement: each 10-minute update eases toward the next hour
+// instead of restarting or jumping to a fixed number on every page load.
+const AUDIENCE_BY_DAY={
+  Sun:[14,12,10,9,9,12,20,31,43,51,56,60,58,54,50,55,66,78,92,108,126,142,112,68],
+  Mon:[12,10,9,8,8,11,18,34,52,64,70,72,72,68,62,65,74,88,102,118,136,148,118,62],
+  Tue:[12,10,9,8,8,11,18,34,54,66,74,78,78,72,66,69,80,96,112,132,150,164,128,68],
+  Wed:[12,10,9,8,8,11,20,38,58,70,78,82,82,76,70,74,88,106,126,146,168,182,138,72],
+  Thu:[14,11,10,9,9,13,22,42,64,78,88,92,92,84,78,84,104,128,152,176,198,214,164,86],
+  Fri:[16,13,11,10,10,15,26,48,70,86,96,102,102,94,88,98,124,154,182,208,226,238,204,132],
+  Sat:[22,18,15,13,12,16,24,34,48,62,74,82,86,82,86,102,126,154,182,208,224,232,218,166]
+};
+const TIME_ZONE="America/New_York";
+function audienceClock(now=new Date()){
+  const parts=new Intl.DateTimeFormat("en-US",{timeZone:TIME_ZONE,weekday:"short",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(now);
+  const read=type=>parts.find(part=>part.type===type)?.value;
+  return {day:read("weekday"),hour:Number(read("hour"))%24,minute:Number(read("minute"))};
+}
+function updateListenerCount(){
+  const {day,hour,minute}=audienceClock();
+  const profile=AUDIENCE_BY_DAY[day]||AUDIENCE_BY_DAY.Mon;
+  const current=profile[hour];
+  const next=profile[(hour+1)%24];
+  const tenMinuteSlot=Math.floor(minute/10);
+  const gentleMovement=[0,1,0,-1,0,1][tenMinuteSlot];
+  const listeners=Math.max(8,Math.round(current+(next-current)*(minute/60))+gentleMovement);
+  const peak=Math.max(...profile);
+  listenerCount.textContent=String(listeners);
+  listenerPeak.textContent=String(peak);
+  listenerNote.textContent=minute<10?"NEW HOUR • LIVE LISTENER UPDATE":"UPDATES EVERY 10 MINUTES";
+}
+function scheduleAudienceRefresh(){
+  updateListenerCount();
+  const now=new Date();
+  const nextTenMinutes=(10-(now.getMinutes()%10))*60000-now.getSeconds()*1000-now.getMilliseconds();
+  window.setTimeout(()=>{updateListenerCount();window.setInterval(updateListenerCount,10*60*1000);},Math.max(1000,nextTenMinutes));
+}
+scheduleAudienceRefresh();
+
+</script>
+<script>
+/* ===== Da Grind FM — city-cam layer (additive block; the two original scripts above are untouched) =====
+   Resting stack in the hero video card: logo layer (bottom) -> city-cam layer -> live studio camera (top).
+   Signal hooked: this block mirrors the main script's checkCamera() — it fetches CONFIG.liveVideoUrl
+   with a "status=" cache-buster and treats the studio camera as LIVE when the response is OK and the
+   body contains "#EXTM3U". It polls politely (every 5s, plus on tab re-focus). Camera LIVE -> city
+   layer hidden. Camera OFFLINE -> city layer shown; the iframe src is set only on first show. */
+const CITY_CAM_EMBED_URL = "https://www.youtube.com/embed/GkBMgHwSIV0?autoplay=1&mute=1&playsinline=1";
+(function(){
+  const layer=document.getElementById("cityCamLayer");
+  const frame=document.getElementById("cityCamFrame");
+  if(!layer||!frame)return;
+  if(!CITY_CAM_EMBED_URL)return;
+  if(typeof CONFIG==="undefined"||!CONFIG.liveVideoUrl)return;
+  const CHECK_MS=5000;
+  let srcSet=false,cityShown=false;
+  async function checkCityCam(){
+    if(document.hidden)return;
+    let studioLive=false;
+    try{
+      const joiner=CONFIG.liveVideoUrl.includes("?")?"&":"?";
+      const response=await fetch(CONFIG.liveVideoUrl+joiner+"status="+Date.now(),{cache:"no-store"});
+      const manifest=response.ok?await response.text():"";
+      studioLive=response.ok&&manifest.includes("#EXTM3U");
+    }catch(_){studioLive=false;}
+    if(studioLive){
+      if(cityShown){layer.hidden=true;cityShown=false;}
+    }else{
+      if(!srcSet){frame.src=CITY_CAM_EMBED_URL;srcSet=true;}
+      if(!cityShown){layer.hidden=false;cityShown=true;}
+    }
+  }
+  checkCityCam();
+  setInterval(checkCityCam,CHECK_MS);
+  document.addEventListener("visibilitychange",()=>{if(!document.hidden)checkCityCam();});
+})();
+</script>
+</body>
+</html>
